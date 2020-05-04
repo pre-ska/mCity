@@ -176,8 +176,15 @@ class EditMatch extends Component {
     }, 2000);
   };
 
-  deleteMatch = e => {
-    console.log(e);
+  deleteMatch = async () => {
+    console.log(this.props);
+    console.log(`matches/${this.state.matchId}`);
+    // let match = fbdb.ref(`matches/${this.state.matchId}`);
+
+    // match.remove();
+    fbMatches.child(this.state.matchId).remove();
+    // fbMatches.ref(this.state.matchId).child('stadium').update('aaaaaaaaaaa');
+    // .then(res => console.log(res));
   };
 
   submitForm = e => {
@@ -194,7 +201,7 @@ class EditMatch extends Component {
       if (team.shortName === dataToSubmit.local) {
         dataToSubmit["localThmb"] = team.thmb;
       }
-      if (team.shortName === dataToSubmit.local) {
+      if (team.shortName === dataToSubmit.away) {
         dataToSubmit["awayThmb"] = team.thmb;
       }
     });
@@ -384,14 +391,14 @@ class EditMatch extends Component {
                 <button onClick={e => this.submitForm(e)}>
                   {this.state.formType}
                 </button>
-                {this.state.formType === "Edit match" && (
+                {/* {this.state.formType === "Edit match" && (
                   <button
                     style={{ marginLeft: "50px" }}
-                    onClick={e => this.deleteMatch(e)}
+                    onClick={this.deleteMatch}
                   >
                     Delete match
                   </button>
-                )}
+                )} */}
               </div>
             </form>
           </div>
